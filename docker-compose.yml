@@ -1,0 +1,16 @@
+services:
+  web:
+    build: .
+    restart: always
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./static:/app/static
+      - ./app/mav.py:/app/mav.py
+  updater:
+    build:
+      context: ./updater
+      dockerfile: Dockerfile
+    volumes:
+      - ./static:/web
+    restart: unless-stopped
